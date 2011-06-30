@@ -1,0 +1,141 @@
+/* 
+
+	Skin
+
+	Author:			Terry Schmidt
+	Date:			18 Apr, 2009
+
+	Description:
+	===============================================================
+	Place styles that will affect the look and feel for your site.
+	You should not have to modify reset.css, typography.css, grids.css
+	or application.css if you are using the grids css system.
+
+*/
+
+body {
+	color: #555;
+}
+
+#container {
+	border-top: 1px solid #e5e5e5;
+	border-left: 1px solid #e5e5e5;
+	border-right: 2px solid #d5d5d5;
+	border-bottom: 2px solid #c5c5c5;
+	margin: 2.30em auto;
+	padding: 0.77em;
+	width: 73.85em;
+}
+
+#pagetitle {
+	border-bottom: 2px solid #e5e5e5;
+	padding-bottom: 0.385em;
+}
+
+	#pagetitle span {
+		color: #6b99bf;
+	}
+	
+.clearfix {
+	overflow: hidden;
+	_overflow: visible;
+	zoom: 1;
+}
+
+pre {
+	background-color: #e5e5e5;
+	margin-bottom: 0.77em;
+	overflow: auto;
+	padding: 0.77em;
+}
+
+table {
+	background-color: #efefef;
+	border-collapse: collapse;
+	border-color: #999;
+	width: 100%;
+}
+
+tr, td, th {
+	border-color: #ccc;
+}
+
+tr:nth-child(even) {
+	background-color: #f5f5f5;
+}
+
+th {
+	background-color: #444;
+	color: #fff;
+}
+
+/*
+==============================================================================
+	Basic CSS
+==============================================================================
+*/
+
+.slideshow-container {
+  width: 700px;
+  border: 1px solid silver;
+  margin: 0 auto 20px;
+  padding: 20px;
+}
+
+.slideshow-container img {
+  width: 100%;
+}
+
+.content-player-tabs-container {
+  width: 700px;
+  margin: 20px auto 0;
+}
+
+.content-player-tabs-container ol,
+.content-player-tabs-container ol li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.content-player-tabs-container ol {
+  overflow: none;
+  margin-bottom: ;
+}
+
+.content-player-tabs-container ol li {
+  float: left;
+  border: 1px solid silver;
+  border-bottom: none;
+  margin-right: 4px;
+}
+
+.content-player-tabs-container ol li a {
+  color: #444;
+  display: block;
+  text-decoration: none;
+  padding: 3px 6px;
+}
+
+.content-player-tabs-container ol li a.current-tab {
+  background-color: #cfcfcf;
+  border-color: #353535;
+  color: #353535;
+}
+
+.arrow-container {
+  float: left;
+}
+
+.arrow-container.next {
+  float: right;
+}
+
+.arrow-container a {
+  color: #999;
+  text-decoration: none;
+}
+
+.content-player-slides-wrapper {
+  clear: both;
+}

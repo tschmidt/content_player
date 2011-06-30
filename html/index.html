@@ -1,0 +1,542 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>jQuery Plugin: Content Player</title>
+
+		<link rel="stylesheet" href="stylesheets/application.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/jquery.content-player.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div id="container">
+			<h1 id="pagetitle">jQuery Plugin: <span>Content Player</span></h1>
+			
+			<h2>Description</h2>
+			<p>
+				A light-weight plugin that allows you to create a slideshow for HTML
+				content.
+			</p>
+			
+			<h2>Requirements</h2>
+			<p>
+			 This plugin requires jQuery 1.6+ and jQuery UI 1.8+
+			</p>
+			
+			<h2>Options</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Option</th>
+						<th>Description</th>
+						<th>Default</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>autoPlay</td>
+						<td>[true, false] Specifies whether the "slideshow" should play automatically.</td>
+						<td>false</td>
+					</tr>
+					<tr>
+						<td>autoPlayInterval</td>
+						<td>Specifies the length of time the slideshow will wait before advancing to the next slid. (Only applicable if autoPlay is set to true)</td>
+						<td>7000ms</td>
+					</tr>
+					<tr>
+						<td>autoPlayStopWhenClicked</td>
+						<td>Specifies whether the slideshow should stop if you click one of the navigational elements</td>
+						<td>true</td>
+					</tr>
+					<tr>
+					  <td>autoPlayRestartAfterInterval</td>
+					  <td>Specifies the time to wait before the slideshow resumes. (Only applicable if autoPlayStopWhenClicked is set to false)</td>
+					  <td>15000ms</td>
+					</tr>
+					<tr>
+					  <td>locationHashSupport</td>
+					  <td>Supports using hash in the URL to set the initial slide to show</td>
+					  <td>true</td>
+					</tr>
+					<tr>
+					  <td>dynamicArrows</td>
+					  <td>Creates "next" and "previous" arrows for navigation if set to true</td>
+					  <td>true</td>
+					</tr>
+					<tr>
+					  <td>dynamicArrowsPrevText</td>
+					  <td>Sets the text that will be displayed for the previous navigation link (Only applicable if dynamicArrows is set to true)</td>
+					  <td>&quot;&amp;#171; prev&quot;</td>
+					</tr>
+					<tr>
+					  <td>dynamicArrowsNextText</td>
+					  <td>Sets the text that will be displayed for the next navigation link (Only applicable if dynamicArrows is set to true)</td>
+					  <td>&quot;next &amp;#187;&quot;</td>
+					</tr>
+					<tr>
+					  <td>dynamicTabs</td>
+					  <td>Creates tabs for each "slide". The title for the tab is determined by the element with the class set by tabTitleSelector.</td>
+					  <td>true</td>
+					</tr>
+					<tr>
+					  <td>dynamicTabsPosition</td>
+					  <td>["top", "bottom"] Determines whether tabs appear on top of the slideshow or the bottom.</td>
+					  <td>top</td>
+					</tr>
+					<tr>
+					  <td>tabTitleSelector</td>
+					  <td>The class that will be used to find the element who's text will be used for the tab title (see examples for more information).</td>
+					  <td>.title</td>
+					</tr>
+					<tr>
+					  <td>firstSlideToLoad</td>
+					  <td>Specifies the initial slide that should be active.</td>
+					  <td>1 (specifies the first slide in the set)</td>
+					</tr>
+					<tr>
+					  <td>slideEaseDuration</td>
+					  <td>Specifies the time it will take to transition between slides</td>
+					  <td>1000ms</td>
+					</tr>
+					<tr>
+					  <td>slideEaseFunction</td>
+					  <td>Specifies the easing function that will used during the slide transition (see <a href="http://goo.gl/RM7Fd">jQuery Easing Plugin</a> for a list of options)</td>
+					  <td>jswing</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<h2>HTML Structure</h2>
+			<p>
+				One of the things that I don't like about similar plugins is the strict
+				HTML structure or extraneous markup that you need to use in order for
+				the slideshow to work. In my approach to this problem I did my best to
+				make sure the plugin creates any HTML element that it will require
+				leaving you, the creator of your content, responsible for making the
+				markup as semantic as possible.
+			</p>
+			<p>
+			  With that said, there is one tiny bit of extra markup that you will
+			  need. Unfortunately, I have not found a	way around this and as such
+			  you will simply need to wrap your "slides" in a block level container.
+			</p>
+			<pre><code>&lt;div id="slideshow1" class="slideshow-container"&gt;
+  &lt;!-- Your "slides" here --&gt;
+&lt;/div&gt;
+</code></pre>
+			<p>
+			 And that's it. The id and class you choose to give the container is
+			 completely up to you. One more thing to note is that there is no
+			 default CSS that comes with this plugin. You can use what I have done
+			 here for inspiration, but again, I chose to leave the CSS up to you.
+			</p>
+			
+			<h2>Examples</h2>
+<!-- 
+
+    ==========================================================================
+      Slideshow 1 Example
+    ==========================================================================  
+
+ -->
+			<h3>Slideshow using divs</h3>
+      <p>
+        In the following example I am using "div" elements to contain my slides.
+        This also just uses the defaults for the library. 
+      </p>
+      
+      <div id='slideshow1' class="slideshow-container">
+        <div>
+          <header>
+            <h1 class="title">Home</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </div>
+        <div>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </div>
+        <div>
+          <header>
+            <h1 class="title">Contact Us</h1>
+          </header>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </div>
+      </div>
+      
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow1&quot;).content_player()
+&lt;/script&gt;</code></pre>
+      
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow1").content_player();
+      </script>
+
+<!-- 
+
+    ==========================================================================
+      Slideshow 2 Example
+    ==========================================================================  
+
+ -->
+			<h3>Slideshow using sections</h3>
+      <p>
+        In this next example I am using the HTML5 "section" element to contain my slides.
+        Like the first example I am just using the default options. 
+      </p>
+
+      <div id='slideshow2' class="slideshow-container">
+        <section>
+          <header>
+            <h1 class="title">Home</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">Contact Us</h1>
+          </header>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </section>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow2&quot;).content_player();
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow2").content_player();
+      </script>
+      
+<!-- 
+
+    ==========================================================================
+      Slideshow 3 Example
+    ==========================================================================  
+
+ -->
+  		<h3>Setting the Initial Slide</h3>
+      <p>
+        Here I am specifying the initial slide to start at. 
+      </p>
+
+      <div id='slideshow3' class="slideshow-container">
+        <section>
+          <header>
+            <h1 class="title">Home</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam sapizzle velizzle, boofron volutpizzle, suscipit quizzle, gravida vizzle, nizzle. Pellentesque fo tortor. Sizzle eros. Fusce izzle sizzle crackalackin turpizzle tempus mah nizzle. Mauris pellentesque nibh cool turpizzle. Check it out izzle shizzlin dizzle. Pellentesque eleifend rhoncizzle bizzle. In hac habitasse platea dictumst. I'm in the shizzle dapibus. Curabitur owned urna, pretizzle rizzle, mattizzle ac, eleifend vitae, nunc. Crackalackin suscipizzle. Integer dizzle the bizzle sizzle da bomb.
+          </p>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">Contact Us</h1>
+          </header>
+          <p>
+            Curabitizzle izzle diam quis nisi crunk mollizzle. Go to hizzle own yo'. Mofo odio. Yo mamma neque. Cras orci. Cras maurizzle mauris, interdum bow wow wow, feugiat boofron amizzle, brizzle izzle, shiz. Pellentesque i'm in the shizzle. Dope shut the shizzle up mi, volutpat yo, yo mamma sizzle, shizzle my nizzle crocodizzle sempizzle, gangster. Ma nizzle izzle ipsizzle. I saw beyonces tizzles and my pizzle went crizzle volutpat fizzle bizzle orci. Cras quizzle justo in purus sodalizzle i saw beyonces tizzles and my pizzle went crizzle. Hizzle venenatis mah nizzle izzle yo mamma. Nunc nizzle. Suspendisse venenatis break yo neck, yall lacizzle. Curabitur eu ante. Nunc crazy, leo rizzle shiznit hendrerizzle, ipsum felis elementum fizzle, in aliquizzle magna felizzle luctus pede. Break yo neck, yall a nisl. Class hizzle taciti dang tellivizzle litora torquent its fo rizzle conubia nostra, pizzle sizzle dope. Pot interdizzle, mah nizzle nizzle elementizzle nonummy, nisl orci yippiyo leo, in stuff risus yo mamma boofron sizzle.
+          </p>
+        </section>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow3&quot;).content_player({
+    firstSlideToLoad: 2
+  });
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow3").content_player({
+          firstSlideToLoad: 2
+        });
+      </script>
+
+<!-- 
+
+    ==========================================================================
+      Slideshow 4 Example
+    ==========================================================================  
+
+ -->
+  		<h3>Automatically starting the slide show</h3>
+      <p>
+        I don't know that this requires an explanation, but what the hell, why
+        break the pattern now. Starts the slideshow automaticaly. 
+      </p>
+
+      <div id='slideshow4' class="slideshow-container">
+        <section>
+          <header>
+            <h1 class="title">Home</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">Contact Us</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow4&quot;).content_player({
+    autoPlay: true,
+    autoPlayInterval: 2000
+  });
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow4").content_player({
+          autoPlay: true,
+          autoPlayInterval: 2000
+        });
+      </script>
+
+<!-- 
+
+    ==========================================================================
+      Slideshow 5 Example
+    ==========================================================================  
+
+ -->
+  		<h3>We don't need no stinkin' tabs</h3>
+      <p>
+        You don't like the tabs? No problem, you don't have to have them. 
+      </p>
+
+      <div id='slideshow5' class="slideshow-container">
+        <section>
+          <header>
+            <h1 class="title">Home</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+        <section>
+          <header>
+            <h1 class="title">Contact Us</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </section>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow5&quot;).content_player({
+    autoPlay: true,
+    autoPlayInterval: 2000,
+    dynamicTabs: false
+  });
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow5").content_player({
+          autoPlay: true,
+          autoPlayInterval: 2000,
+          dynamicTabs: false
+        });
+      </script>
+
+<!-- 
+
+    ==========================================================================
+      Slideshow 6 Example
+    ==========================================================================  
+
+ -->
+  		<h3>We don't need no stinkin' tabs...OR arrows</h3>
+      <p>
+        Let's just force our users to watch the slideshow with no control
+        whatsoever. Also, I switched it up a bit and am now showcasing how
+        to use images with the HTML5 "figure" element as our "slide" container.
+        I know...your mind just got blowed.
+      </p>
+      <p>
+        !!!! DISCLAIMER !!!! I'll be honest. These are not my images. I just
+        used Google with a search of "images 700x350" and took a few (some
+        of you out there may call this "stealing"). I promise I am not trying
+        to take credit for these images. If they belong to you and you feel
+        wronged please just let me know and I will remove it immediately.
+      </p>
+
+      <div id='slideshow6' class="slideshow-container">
+        <figure>
+          <img src="images/image1.jpg" width="700" height="350" alt="">
+        </figure>
+        <figure>
+          <img src="images/image2.jpg" width="700" height="350" alt="">
+        </figure>
+        <figure>
+          <img src="images/image3.jpg" width="700" height="350" alt="">
+        </figure>
+        <figure>
+          <img src="images/image4.jpg" width="700" height="350" alt="">
+        </figure>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow6&quot;).content_player({
+    autoPlay: true,
+    autoPlayInterval: 2000,
+    dynamicTabs: false,
+    dynamicArrows: false
+  });
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow6").content_player({
+          autoPlay: true,
+          autoPlayInterval: 2000,
+          dynamicTabs: false,
+          dynamicArrows: false
+        });
+      </script>
+      
+<!-- 
+
+    ==========================================================================
+      Slideshow 7 Example
+    ==========================================================================  
+
+ -->
+  		<h3>Let's just get crazy</h3>
+      <p>
+        Um, yeah...So here we are using a mix of divs, sections, and figures.
+        Some of the slides I've set a title, others I let my plugin auto
+        label. I also have this one autorestart after clicking a tab.
+      </p>
+
+      <div id='slideshow7' class="slideshow-container">
+        <section>
+          <header>
+            <h1>Home</h1>
+            <p>
+              Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+            </p>
+            <p>
+              Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+            </p>
+            <p>
+              Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+            </p>
+          </header>
+        </section>
+        <div>
+          <header>
+            <h1 class="title">About</h1>
+          </header>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+          <p>
+            Vestibulum ante pot primizzle the bizzle faucibizzle orci yo mamma et ultrices posuere cubilia Curae; Sizzle dope nulla away pot phat aliquam. Get down get down euismizzle phat. Praesent mah nizzle tellivizzle mammasay mammasa mamma oo sa. Gangster diam dui, adipiscing vitae, gravida sizzle, we gonna chung fo, we gonna chung. Etiam crazy bibendum mauris. Ma nizzle in elit izzle augue porta laorizzle. Gangster sed fo shizzle. Vivamizzle the bizzle. Praesent eu lacizzle bling bling lacus dizzle adipiscing. Bow wow wow the bizzle tellus a shizzlin dizzle tincidunt dawg. Integer boom shackalack. Nam crunk. Break yo neck, yall magna eros, hizzle vitae, dang izzle, imperdiet funky fresh, ass. Pot black sodalizzle its fo rizzle. I'm in the shizzle sollicitudin tristique stuff. Phasellizzle things, convallizzle izzle, fo shizzle mah nizzle fo rizzle, mah home g-dizzle vizzle, crazy in, nibh. Yo own yo' pimpin', facilisis eu, sollicitudizzle eu, aliquet a, lectizzle. Sheezy mauris risizzle, pizzle molestie, break yo neck, yall ut, blandizzle sit its fo rizzle, enizzle.
+          </p>
+        </div>
+        <figure>
+          <h1 class="title">THE BEACH!!!!</h1>
+          <img src="images/image2.jpg" width="700" height="350" alt="">
+        </figure>
+      </div>
+
+      <pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+  $(&quot;#slideshow7&quot;).content_player({
+    autoPlay: true,
+    autoPlayInterval: 2000,
+    dynamicTabs: false,
+    dynamicArrows: false,
+    autoPlayStopWhenClicked: false,
+    autoPlayRestartAfterInterval: 3500
+  });
+&lt;/script&gt;</code></pre>
+
+      <script type="text/javascript" charset="utf-8">
+        $("#slideshow7").content_player({
+          autoPlay: true,
+          autoPlayInterval: 2000,
+          autoPlayStopWhenClicked: false,
+          autoPlayRestartAfterInterval: 3500
+        });
+      </script>
+		</div>
+	</body>
+</html>
